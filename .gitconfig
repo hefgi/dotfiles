@@ -1,0 +1,17 @@
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[user]
+	name = François-Julien Alcaraz
+	email = fj@mokriya.com
+[credential]
+	helper = osxkeychain
+[alias]
+logx = log --max-count=20 --graph --decorate=short --color --format=format:'%C(bold blue)%h%C(reset)+%C(bold green)(%cr)%C(reset)+%C(auto)%d%C(reset)- %C(dim)%an%C(reset)%C(bold green): %s%C(reset)'
+    tree = !bash -c '"                                                                             \
+            while IFS=+ read -r hash time branch message; do                                            \
+                          timelength=$(echo \"$time\" | sed -E \"s:[^ ][[]([0-9]{1,2}(;[0-9]{1,2})?)?m::g\");     \
+                                      timelength=$(echo \"16+${#time}-${#timelength}\" | bc);                                 \
+                                                  printf \"%${timelength}s    %s %s %s\n\" \"$time\" \"$hash\" \"$branch\" \"$message\";  \
+                                                          done < <(git logx && echo);"'
