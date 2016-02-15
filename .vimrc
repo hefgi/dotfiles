@@ -1,3 +1,13 @@
+" pathogen
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+
+" solarized theme
+set background=dark
+colorscheme solarized
+
+" custom config
 set nocompatible
 set term=xterm-256color
 set termencoding=utf-8
@@ -9,7 +19,7 @@ set fillchars+=stl:\ ,stlnc:\
 set mouse=a
 set clipboard=unnamed
 
-:syntax on
+" PH2M config
 set autoindent            " auto-indent
 set tabstop=2             " tab spacing
 set softtabstop=2         " unify
