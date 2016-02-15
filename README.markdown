@@ -36,15 +36,17 @@ Clone the [Awesome Powerline Fonts](https://github.com/gabrielelana/awesome-term
 * Install it manually for iTerm2 (Preferences etc...) and choose one of the awesome powerline fonts you just installed.
 * For Vim
   1. [Pathogen](https://github.com/tpope/vim-pathogen) installation
-```
-mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-```
+  
+    ```
+    mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+    ```
   2. Clone [Solarized for Vim](https://github.com/altercation/vim-colors-solarized) 
-```shell
-cd ~/.vim/bundle
-git clone git://github.com/altercation/vim-colors-solarized.git
-```
+
+    ```shell
+    cd ~/.vim/bundle
+    git clone git://github.com/altercation/vim-colors-solarized.git
+    ```
 * For Xcode
   1. Install [Alcatraz](https://github.com/alcatraz/Alcatraz) package manager
   2. Choose [Solarized Dark for Xcode](https://github.com/ArtSabintsev/Solarized-Dark-for-Xcode/) theme
