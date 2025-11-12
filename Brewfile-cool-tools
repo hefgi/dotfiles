@@ -1,0 +1,6 @@
+brew "yazi"     # fast terminal file manager with previews
+brew "bat"      # modern cat replacement with syntax highlighting & Git integration
+brew "fzf"      # fuzzy finder for files, history, Git branches
+brew "eza"      # modern ls replacement (icons, Git status)
+brew "zoxide"   # quickly jump between frequently used directories (alternative to z)
+cask "gitx"     # Git GUI

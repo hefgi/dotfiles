@@ -1,111 +1,153 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/fjalcaraz/.oh-my-zsh
-export TERM="xterm-256color"
+# Greeting at Terminal launch
+autoload -U colors && colors
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE='awesome-patched'
+function say_greeting {
+  print
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+  # Emojis based on hour
+  local hour=$(date +%H)
+  local emoji greeting_word
+  if (( hour < 12 )); then
+    greeting_word="Bonjour"
+    emoji="🥐"
+  elif (( hour < 18 )); then
+    greeting_word="Bonjour"
+    emoji="☕️"
+  else
+    greeting_word="Bonsoir"
+    emoji="💡"
+  fi
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+  print -P "%F{cyan}${emoji} ${greeting_word} $USER!%f"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+  # Quotes array
+  local quotes=(
+    "🧠 Code like the wind."
+    "🚀 Keep pushing pixels and boundaries."
+    "🔥 Ship fast, fix things later."
+    "🌱 Stay curious, keep growing."
+    "💡 Think twice, code once."
+    "✨ Make it simple, make it elegant."
+    "🔥 Errors are lessons in disguise."
+    "🚀 Speed matters — but readability wins."
+    "👁️ Write for humans, not just machines."
+    "🌱 Refactor often, grow continuously."
+    "🚫 Mistakes aren’t the end, they're the start."
+    "❌ Fail fast, grow faster."
+  )
+  local idx=$(( RANDOM % ${#quotes[@]} ))
+  local quote=${quotes[$idx]}
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+  # Print the quote
+  print -P "%F{cyan}$quote%f"
+  print
+}
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+say_greeting
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# ----- Paths & initial setup -----
+#FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# ----- NVM -----
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew gem git-flow pod sublime)
-
-# User configuration
-DEFAULT_USER='fjalcaraz'
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
+# ----- Oh My Zsh -----
+export ZSH="$HOME/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# ----- Powerlevel10k (Homebrew) -----
+source $(brew --prefix powerlevel10k)/share/powerlevel10k/powerlevel10k.zsh-theme
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# ----- OMZ Plugins -----
+plugins=(
+  git
+  gitfast
+  brew
+  z
+  command-not-found
+  colored-man-pages
+  vscode
+  sublime
+  react-native
+  postgres
+  nvm
+  npm
+  node
+  iterm2
+  gcloud
+  dotenv
+  docker
+  docker-compose
+  aws
+  yarn
+  fzf
+  eza
+  python
+  pyenv
+  pip
+  pipenv
+)
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# ----- External plugins from Brew -----
+# Load manually since they're not inside OMZ's plugin folders
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias z="vi ~/.zshrc"
-alias craigslist='cd ~/Desktop/Mokriya/BettrCraigslist/'
+# ----- User configuration -----
 alias ll='ls -la'
-eval "$(hub alias -s)"
 
-# POWER LEVEL CONFIG
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=('root_indicator' 'os_icon' 'context' 'dir' 'vcs')
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=('status' 'history' 'time')
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_from_left"
-POWERLEVEL9K_OS_ICON_BACKGROUND="black"
-POWERLEVEL9K_OS_ICON_FOREGROUND="249"
-POWERLEVEL9K_DIR_HOME_BACKGROUND="black"
-POWERLEVEL9K_DIR_HOME_FOREGROUND="249"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="black"
-POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="249"
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="black"
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="249"
-POWERLEVEL9K_STATUS_OK_BACKGROUND="black"
-POWERLEVEL9K_STATUS_OK_FOREGROUND="green"
-POWERLEVEL9K_STATUS_ERROR_BACKGROUND="black"
-POWERLEVEL9K_STATUS_ERROR_FOREGROUND="red"
-POWERLEVEL9K_HISTORY_BACKGROUND='black'
-POWERLEVEL9K_HISTORY_FOREGROUND='249'
-POWERLEVEL9K_TIME_BACKGROUND="black"
-POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S}"
+# Use Homebrew python instead of macos
+alias python=python3
+alias pip=pip3
+
+# If eza (modern ls) exists, use it for directory listing
+EZAPATH=$(command -v eza)
+if [[ -n $EZAPATH ]]; then
+  LS_FLAGS="--all --group-directories-first --time-style=long-iso --sort=name --icons=always"
+  alias ls="eza ${LS_FLAGS} --across"
+  alias ll="eza ${LS_FLAGS} --long --group --header --binary --created --modified --git --classify"
+  alias l="ls"
+  alias tree="ll --tree"
+fi
+
+# If bat (modern cat) exists, use it for file viewing
+BATPATH=$(command -v bat)
+if [[ -n $BATPATH ]]; then
+  alias cat="bat --paging=never"
+fi
+
+# If Yazi is available, use it for File Mgt
+YAZIPATH=$(command -v yazi)
+if [[ -n $YAZIPATH ]]; then
+  # override 'open' for directories
+  function open() {
+    if [[ -d $1 ]]; then
+      # argument is a directory → open with Yazi
+      yazi "$1"
+    else
+      # argument is a file → pass to macOS open
+      /usr/bin/open "$1"
+    fi
+  }
+fi
+
+# Lock the screen
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+# ----- Sublime text -----
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
