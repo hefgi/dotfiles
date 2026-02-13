@@ -1,0 +1,27 @@
+{
+  "env": {
+    "API_TIMEOUT_MS": "3000000",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(curl:*)",
+      "Bash(brew list:*)",
+      "Bash(convert:*)",
+      "Bash(file:*)",
+      "Bash(magick:*)",
+      "Bash(grep:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(dig:*)",
+      "Bash(wc:*)",
+      "Bash(source:*)",
+      "Bash(sqlite3:*)",
+      "Bash(ls:*)"
+    ],
+    "defaultMode": "default"
+  },
+  "alwaysThinkingEnabled": false
+}

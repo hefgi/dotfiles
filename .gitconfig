@@ -1,10 +1,26 @@
 [credential]
-	helper = osxkeychain
+	helper =
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
 [alias]
-logx = log --max-count=20 --graph --decorate=short --color --format=format:'%C(bold blue)%h%C(reset)+%C(bold green)(%cr)%C(reset)+%C(auto)%d%C(reset)- %C(dim)%an%C(reset)%C(bold green): %s%C(reset)'
+	logx = log --max-count=20 --graph --decorate=short --color --format=format:'%C(bold blue)%h%C(reset)+%C(bold green)(%cr)%C(reset)+%C(auto)%d%C(reset)- %C(dim)%an%C(reset)%C(bold green): %s%C(reset)'
     tree = !bash -c '"                                                                             \
             while IFS=+ read -r hash time branch message; do                                            \
                           timelength=$(echo \"$time\" | sed -E \"s:[^ ][[]([0-9]{1,2}(;[0-9]{1,2})?)?m::g\");     \
                                       timelength=$(echo \"16+${#time}-${#timelength}\" | bc);                                 \
                                                   printf \"%${timelength}s    %s %s %s\n\" \"$time\" \"$hash\" \"$branch\" \"$message\";  \
                                                           done < <(git logx && echo);"'
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[init]
+	defaultBranch = main
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
