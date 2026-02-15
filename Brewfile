@@ -16,7 +16,6 @@ brew "zsh-fast-syntax-highlighting" # Feature-rich syntax highlighting for Zsh
 cask "visual-studio-code"         # VS Code
 cask "google-chrome"              # Chrome
 cask "telegram"                   # Telegram
-cask "xcode"                      # Xcode
 cask "iterm2"                     # iTerm2
 cask "sublime-text"               # Sublime Text
 cask "claude"                     # Anthropic’s official Claude AI desktop app
