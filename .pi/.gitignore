@@ -1,0 +1,4 @@
+# Runtime / ephemeral files — do not commit
+agent/sessions/
+agent/logs/
+*.log

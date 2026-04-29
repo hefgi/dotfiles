@@ -2,7 +2,7 @@
 
 # Hefgi's Dotfiles — ⚡️ Dev Setup
 
-This repository contains my configuration files and setup scripts for a macOS development environment using iTerm2 + Zsh + Oh My Zsh + Powerlevel10k + Claude Code, tailored for **TypeScript / Node.js / React / React Native** *and* **Python** engineers of the AI era.
+This repository contains my configuration files and setup scripts for a macOS development environment using iTerm2 + Zsh + Oh My Zsh + Powerlevel10k + pi + Claude Code, tailored for **TypeScript / Node.js / React / React Native** *and* **Python** engineers of the AI era.
 
 ---
 
@@ -18,6 +18,7 @@ This repository contains my configuration files and setup scripts for a macOS de
     - [TypeScript / Node / React / React Native](#typescript-node-react-react-native)
     - [Python](#python)
     - [IDE / Text Editors](#ide-text-editors)
+  - [🤖 pi](#pi)
   - [🤖 Claude Code](#claude-code)
   - [🔖 Aliases](#aliases)
   - [🛠 Tooling: cool stuff to use](#tooling-cool-stuff-to-use)
@@ -64,23 +65,28 @@ This repository contains my configuration files and setup scripts for a macOS de
    ln -s ~/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
    ln -s ~/dotfiles/.claude ~/.claude
    ```
-4. **Configure Git**
+4. **Copy pi configuration** (not symlinked — pi writes runtime data here)
+   ```bash
+   cp -r ~/dotfiles/.pi ~/.pi
+   cp -r ~/dotfiles/.agents ~/.agents
+   ```
+5. **Configure Git**
    ```bash
    git config --global user.name "Your Name"
    git config --global user.email "you@example.com"
    git config --global user.signingkey "your-ssh-public-key"
    ```
 
-5. **Reload your shell**
+6. **Reload your shell**
    ```bash
    source ~/.zshrc
    ```
-6. **Configure Powerlevel10k**
+7. **Configure Powerlevel10k**
    ```bash
    p10k configure
    ```
 
-7. **Install last stable Node Version**
+8. **Install last stable Node Version**
    ```bash
    nvm install --lts
    nvm alias default 'lts/*'
@@ -116,7 +122,7 @@ Use `nvm` for Node.js version management and Use `npm` and/or `yarn` for package
 Use `pyenv` to manage Python versions and use `pipenv` for virtual environments and dependencies.
 
 #### AI
-Claude Code and Cursor installed by default.
+pi, Claude Code, and Cursor installed by default.
 
 #### IDE
 Use VSCode and Cursor as main IDEs.
@@ -125,12 +131,32 @@ Use Xcode for iOS Development.
 #### Text Editors
 Use Vim for terminal editing and Sublime Text for GUI editing.
 
+### 🤖 pi
+pi configuration is tracked in `.pi/` and `.agents/`:
+- **`agent/settings.json`** — packages, default provider/model, and theme
+- **`agent/AGENTS.md`** — global agent instructions (e.g. prefer Brew, use tmux)
+- **`agent/extensions/`** — extension configs (e.g. pi-rtk-optimizer)
+- **`agent/skills/`** — symlinks to shared `.agents/skills/`
+- **`web-search.json`** — API keys for web search (Exa + Gemini)
+- **`.agents/skills/`** — shared skill definitions used by both pi and Claude Code
+
+The `.pi/` and `.agents/` directories are **not symlinked** — they're meant to be copied, since pi writes runtime data (sessions, logs) to `~/.pi`.
+
+**Setup after copying `.pi/` to `~/.pi`:**
+1. **Configure web search API keys** in `~/.pi/web-search.json`:
+   - Get an Exa API key from [exa.ai](https://exa.ai)
+   - Get a Gemini API key from [Google AI Studio](https://aistudio.google.com)
+2. **Configure your default model & provider** in `~/.pi/agent/settings.json`:
+   - `defaultProvider` — e.g. `kimi-coding`, `anthropic`, `openai`
+   - `defaultModel` — e.g. `k2p6`, `claude-sonnet-4-5`, `gpt-4o`
+
 ### 🤖 Claude Code
 Global Claude Code configuration is tracked in `.claude/`:
 - **`CLAUDE.md`** — global instructions applied across all projects (commit conventions, package manager preferences, etc.)
 - **`settings.json`** — shared permissions, environment variables, and defaults
 - **`settings.local.json`** — machine-specific overrides (not meant to be shared as-is)
 - **`hooks/notify.sh`** — macOS notification hook for task completion alerts
+- **`skills/`** — symlinks to shared `.agents/skills/`
 
 The symlink in step 3 links `~/.claude` to the repo, so all Claude Code config stays in sync.
 

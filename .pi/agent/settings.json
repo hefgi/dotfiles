@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "npm:pi-powerline-footer",
+    "git:https://github.com/hasit/pi-community-themes",
+    "npm:pi-web-access",
+    "npm:pi-rtk-optimizer",
+    "npm:pi-tool-display",
+    "npm:pi-ask-user"
+  ],
+  "lastChangelogVersion": "0.70.5",
+  "defaultProvider": "kimi-coding",
+  "defaultModel": "k2p6",
+  "defaultThinkingLevel": "medium",
+  "theme": "solarized-dark"
+}
