@@ -39,7 +39,8 @@ cask "claude"                     # Anthropic's official Claude AI desktop app
 cask "claude-code"                # Terminal-based AI coding assistant
 cask "font-symbols-only-nerd-font" # Nerd Font for symbols/icons
 cask "git-credential-manager"     # Git Credential Manager
-cask "docker-desktop"             # Docker Desktop
+cask "orbstack"                   # OrbStack — Docker Desktop replacement
+brew "tilt"                        # Kubernetes dev environment
 cask "1password-cli"              # 1Password CLI
 cask "tailscale"                  # Tailscale VPN
 
